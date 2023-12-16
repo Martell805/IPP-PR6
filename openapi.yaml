@@ -1,0 +1,120 @@
+openapi: 3.0.3
+info:
+  title: Confectionery
+  description: API for the sale of confectionery products
+  contact:
+    email: arina.strelnikova@mail.ru
+  version: 1.0.0
+servers:
+  - url: https://api.example.com/v1
+paths:
+  /cakes:
+    post:
+      tags:
+        - cake
+      summary: Add a new cake to the assortment of our confectionery
+      description: Choose a cake according to your own specifications and add it to our store
+      operationId: addCake
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cake'
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cake'
+        "400":
+          description: Invalid request
+    get:
+      tags:
+        - cakes
+      summary: Get list of cakes
+      description: Get list of all cakes in our store
+      operationId: getCakes
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cake'
+        "400":
+          description: Invalid request
+  /cakes/{id}:
+    get:
+      tags:
+        - cakes/id
+      summary: Get cake
+      description: Get cake from our store by id
+      operationId: getCake
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cake'
+        "400":
+          description: Invalid request
+    put:
+      tags:
+        - cakes/id
+      summary: update cakes specs
+      description: Update specs of any cake in our store by id
+      operationId: updCake
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cake'
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cake'
+        "400":
+          description: Invalid request
+    delete:
+      tags:
+        - cakes/{id}
+      summary: delete cake from store
+      description: delete cake from store by its id
+      operationId: delCake
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cake'
+        "400":
+          description: Invalid request
+
+components:
+  schemas:
+    Cake:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: "Medovik"
+        weight:
+          type: integer
+          example: 1
+        price:
+          type: integer
+          example: 800
